@@ -11,8 +11,9 @@
 /[Uu]ser[Ss]ettings/
 /Assets/PSDs
 /Assets/unity-traffic-simulation
-/polyperfect
-/Prefabs
+/Assets/polyperfect
+/Assets/Prefabs
+/Assets/TransporterVan_03
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
