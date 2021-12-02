@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     public Store store;
 
     void Start() {
-        mainDirectionalLight.intensity = 2.0f;
+        mainDirectionalLight.intensity = 0.8f;
         ResetGame();
     }
 
@@ -154,6 +154,12 @@ public class GameManager : MonoBehaviour
             }
         }
         
+    }
+
+    private void SetTopUIPosition() {
+        // Set the UI position to the top of the screen
+        RectTransform rt = notificationCanvasUI.GetComponent<RectTransform>();
+        rt.anchoredPosition = new Vector2(0, 0);
     }
 
     private void ResetGame() {
