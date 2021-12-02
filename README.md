@@ -13,3 +13,6 @@ Initial game submission. Plenty of rough edges and bugs.
 * Fixed top/bottom UI so that they now stays in place when the screen resizes.
 * Default resolution changed from 1600x900 to 960x540.
 
+### Version 0.5.2
+
+* Fixed lighting bug where main light would be dim after scene transition from title screen.

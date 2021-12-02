@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public BugSelectionState bugSelectionState;
 
-    [Header("Light Settings")]
-    public Light mainDirectionalLight; // SceneManager makes this scene dark, this hask is temporary until i figure it out
+    //[Header("Light Settings")]
+    //public Light mainDirectionalLight; // SceneManager makes this scene dark, this hack is temporary until i figure it out
 
     [Header("Level Settings")]
     public TrafficSystem trafficSystem;
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     public Store store;
 
     void Start() {
-        mainDirectionalLight.intensity = 0.8f;
+        //mainDirectionalLight.intensity = 0.8f;
         ResetGame();
     }
 
