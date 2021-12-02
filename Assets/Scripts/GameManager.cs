@@ -98,12 +98,9 @@ public class GameManager : MonoBehaviour
 
     void Start() {
         ResetGame();
-        //StartCoroutine(notificationCanvasUI.GetComponent<NotificationCanvasUI>().AnimateEndScreen(2, 150));
-        //StartCoroutine(notificationCanvasUI.GetComponent<NotificationCanvasUI>().AnimateWaveLabel());
     }
 
     void Update() {
-
         if (gameState == GameState.RUNNING) {
             if (firstSpawn == true) {
                 firstSpawn = false;
