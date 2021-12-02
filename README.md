@@ -22,3 +22,7 @@ Initial game submission. Plenty of rough edges and bugs.
 * Fixed bug where wave increase wasn't increasing number of vehicles
 * Fixed bug where Game Over wasn't being triggered
 * Bug fix still remains: wave labels, game over labels aren't showing
+
+### Version 0.5.4
+
+* Fixed wave/game over labels
