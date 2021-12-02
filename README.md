@@ -16,3 +16,9 @@ Initial game submission. Plenty of rough edges and bugs.
 ### Version 0.5.2
 
 * Fixed lighting bug where main light would be dim after scene transition from title screen.
+
+### Version 0.5.3
+
+* Fixed bug where wave increase wasn't increasing number of vehicles
+* Fixed bug where Game Over wasn't being triggered
+* Bug fix still remains: wave labels, game over labels aren't showing

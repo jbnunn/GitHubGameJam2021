@@ -631,7 +631,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: GITHUB GAME JAM '21 VERSION 0.5.1
+  m_Text: GITHUB GAME JAM '21 VERSION 0.5.2
 --- !u!222 &1406359734
 CanvasRenderer:
   m_ObjectHideFlags: 0

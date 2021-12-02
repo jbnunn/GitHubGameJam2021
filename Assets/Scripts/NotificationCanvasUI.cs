@@ -49,6 +49,8 @@ public class NotificationCanvasUI : MonoBehaviour
 
     public IEnumerator AnimateEndScreen(int wave, int disruptionPower) {
         
+        Debug.Log("AnimateEndScreen");
+
         // Enable the backtground of the content label
         contentBG.SetActive(true);
         yield return new WaitForSeconds(0.5f);

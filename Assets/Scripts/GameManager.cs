@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
     private int numVehiclesSpawned = 0;
     private int lastSpawnSegmentId = -1;
     private float lastSpawnTime;
+    bool firstSpawn = true;
     public DeliveryTarget[] deliveryTargets;
 
     [Header("Vehicle Entry/Exit Segments")]
@@ -96,35 +97,43 @@ public class GameManager : MonoBehaviour
     public Store store;
 
     void Start() {
-        //mainDirectionalLight.intensity = 0.8f;
         ResetGame();
+        //StartCoroutine(notificationCanvasUI.GetComponent<NotificationCanvasUI>().AnimateEndScreen(2, 150));
+        //StartCoroutine(notificationCanvasUI.GetComponent<NotificationCanvasUI>().AnimateWaveLabel());
     }
 
     void Update() {
-      
+
         if (gameState == GameState.RUNNING) {
-            // Spawn a vehicle every spawnInterval seconds
-            if (numVehiclesSpawned < maxVehiclesForWave) {
-                if (GetNumberOfVehicles() < maxVehiclesForWave && Time.time - lastSpawnTime > spawnInterval) {
-                    SpawnVehicle();
-                    lastSpawnTime = Time.time;
+            if (firstSpawn == true) {
+                firstSpawn = false;
+                SpawnVehicle();
+                StartWave(wave);
+                lastSpawnTime = Time.time;
+            } else {
+                if (numVehiclesSpawned < maxVehiclesForWave) {
+                    if (GetNumberOfVehicles() < maxVehiclesForWave && Time.time - lastSpawnTime > spawnInterval) {
+                        SpawnVehicle();
+                        lastSpawnTime = Time.time;
+                    } 
                 } 
-            } if (numVehiclesSpawned >= maxVehiclesForWave) {
-                // Wave is over
-                if (GetNumberOfVehicles() == 0) {
-                    if (totalPackagesToDeliver > 0) {
-                        wave++;
-                        // Wave is over, but there are still packages to deliver
-                        CancelInvoke("PlayRandomHonks");
-                        gameState = GameState.NEXT_WAVE;
-                        StartWave(wave);
-                    } else {
-                        // Game is over
-                        gameState = GameState.ENDED;
-                        GameOver();
+                if (numVehiclesSpawned >= maxVehiclesForWave) {
+                    // Wave is over
+                    if (GetNumberOfVehicles() == 0) {
+                        if (totalPackagesToDeliver > 0) {
+                            wave++;
+                            // Wave is over, but there are still packages to deliver
+                            gameState = GameState.NEXT_WAVE;
+                            StartWave(wave);
+                        } else {
+                            // Game is over
+                            gameState = GameState.ENDED;
+                            GameOver();
+                        }
                     }
                 }
             }
+            
         }
 
         if (gameState == GameState.ENDED) {
@@ -196,34 +205,17 @@ public class GameManager : MonoBehaviour
         backgroundTrafficLoop.Stop();
     }
 
-    private void PlayRandomHonks() {
-
-        // These are annoying. Ignoring this for now
-        return;
-        /*
-        if (!honkSound.isPlaying) {
-            int numTimesToHonk = Random.Range(1, 3);
-            for (int i = 0; i < numTimesToHonk; i++) {
-                honkSound.Play();
-            }
-        }
-
-        Invoke("PlayRandomHonks", Random.Range(5.0f, 20.0f));
-        */
-    }
-
     private void SetMaxVehiclesForWave(int wave) {
         maxVehiclesForWave = (int)((wave * 2) + 3);
     }
 
     private void StartWave(int wave) {
+        numVehiclesSpawned = 0;
         UpdateWaveValue(wave);
         SetMaxVehiclesForWave(wave);
         StartCoroutine(notificationCanvasUI.GetComponent<NotificationCanvasUI>().AnimateWaveLabel());
         gameState = GameState.RUNNING;
         PlayBackgroundAudio();
-        //Invoke("PlayRandomHonks", Random.Range(11.0f, 18.0f));
-
     }
 
     public void SetTargetPositionForScore() {
@@ -267,7 +259,13 @@ public class GameManager : MonoBehaviour
 
     public void UpdateDeliveredPackageCount(int val) {
         packagesDelivered += val;
-        deliveriesRemainingText.GetComponent<Text>().text = (totalPackagesToDeliver - packagesDelivered).ToString();
+        int deliveriesRemaining = totalPackagesToDeliver - packagesDelivered;
+        if (deliveriesRemaining <= 0) {
+            deliveriesRemainingText.GetComponent<Text>().text = "0";
+            GameOver();
+        } else {
+            deliveriesRemainingText.GetComponent<Text>().text = (deliveriesRemaining).ToString();
+        }
 
         if (packagesDelivered >= totalPackagesToDeliver) {
             GameOver();
@@ -276,7 +274,6 @@ public class GameManager : MonoBehaviour
 
     private void GameOver() {
         gameState = GameState.ENDED;
-        CancelInvoke("PlayRandomHonks");
         StopAllVehicles();
         coroutine = notificationCanvasUI.GetComponent<NotificationCanvasUI>().AnimateEndScreen(wave, disruptionPower);
         StartCoroutine(coroutine);
