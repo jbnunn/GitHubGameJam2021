@@ -1,5 +1,7 @@
 # GitHub Game Off 2021
 
+![Disrupt!](https://jbnunn-public.s3.us-east-1.amazonaws.com/gh-card.png)
+
 This repo is for a game created in the [GitHub Game Off 2021](https://github.blog/2021-11-01-game-off-2021-theme-announcement/), a one-month competition to come up with a new game based on the theme of "Bug."
 
 ## Versions and Updates
@@ -26,3 +28,6 @@ Initial game submission. Plenty of rough edges and bugs.
 ### Version 0.5.4
 
 * Fixed wave/game over labels
+
+![Gameplay](https://jbnunn-public.s3.us-east-1.amazonaws.com/menu-van-neighbourhood.png)
+
